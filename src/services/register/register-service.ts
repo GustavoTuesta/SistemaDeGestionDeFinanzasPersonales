@@ -2,7 +2,7 @@ import { prisma } from "../../lib/prisma"
 import { RegisterDto } from "../../dto/register-dto"
 import bcrypt from "bcrypt"
 
-export async function RegisterUser(data: RegisterDto) {
+export async function RegisterService(data: RegisterDto) {
     try{
         const {name, lastname, email, password} = data;
         const saltRound = 10;
