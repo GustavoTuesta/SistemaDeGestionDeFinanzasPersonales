@@ -1,9 +1,9 @@
-import { prisma } from "../lib/prisma";
-import { LoginDto } from "../dto/login-dto";
+import { prisma } from "../../lib/prisma";
+import { LoginDto } from "../../dto/login-dto";
 import bcrypt from "bcrypt";
-import { generarToken } from "../services/generarToken-service"
+import { generarToken } from "./generarToken-service"
 
-async function login(data: LoginDto): Promise<string> {
+export async function login(data: LoginDto): Promise<string> {
     const { email, password } = data;
     const usuario = await prisma.usuario.findUnique({
         where: {
