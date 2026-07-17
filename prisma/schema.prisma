@@ -14,4 +14,22 @@ model usuario {
   email     String @unique
   password  String
   createdAt DateTime @default(now())
+  ingresos ingreso[]
+}
+
+model categoria {
+  id Int @id @default(autoincrement())
+  nombre String
+  ingresos ingreso[]
+}
+
+model ingreso {
+  id Int @id @default(autoincrement())
+  userId Int
+  categoryId Int
+  amount Decimal @db.Decimal(10, 2)
+  date DateTime @default(now())
+
+  user usuario @relation(fields: [userId], references: [id])
+  category categoria @relation(fields: [categoryId], references: [id])
 }
