@@ -7,3 +7,5 @@ router.post(
     '/registro-ingreso',
     registrarIngresoController
 )
+
+export default router;
