@@ -4,7 +4,7 @@ import { IngresosDto } from "../../dto/ingreso-dto"
 export async function registrarIngresoService(data: IngresosDto) {
     const { category, amount } = data;
 
-    if(category == null || category <= 0) {
+    if(category == null || category <=  0) {
         throw new Error('Categoria no valida');
     }
 
