@@ -1,6 +1,5 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -10,7 +9,8 @@ datasource db {
 
 model usuario {
   id  Int   @id @default(autoincrement())
-  nombre    String
+  name    String
+  lastname String
   email     String @unique
   password  String
   createdAt DateTime @default(now())
@@ -19,7 +19,7 @@ model usuario {
 
 model categoria {
   id Int @id @default(autoincrement())
-  nombre String
+  name String
   ingresos ingreso[]
 }
 

@@ -7,3 +7,5 @@ router.post(
     "/register",
     RegisterController
 )
+
+export default router;

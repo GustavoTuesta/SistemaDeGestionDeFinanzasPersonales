@@ -7,3 +7,5 @@ router.post(
     "/login",
     LoginController
 )
+
+export default router;

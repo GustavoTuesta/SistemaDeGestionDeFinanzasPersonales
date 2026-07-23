@@ -35,7 +35,7 @@ export async function RegisterService(data: RegisterDto) {
             }
         )
 
-        const { HashPassword, ...newUserWitoutPassword} = newUser
+        const { password: hashPassword, ...newUserWitoutPassword} = newUser
 
         return newUserWitoutPassword;
 
