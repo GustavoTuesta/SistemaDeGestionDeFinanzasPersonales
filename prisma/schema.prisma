@@ -17,19 +17,36 @@ model usuario {
   ingresos ingreso[]
 }
 
-model categoria {
+model categoriaIngreso {
   id Int @id @default(autoincrement())
   name String
   ingresos ingreso[]
 }
 
+model categoriaGasto {
+  id Int @id @default(autoincrement())
+  name String
+  gastos gasto[]
+}
+
 model ingreso {
   id Int @id @default(autoincrement())
   userId Int
-  categoryId Int
+  categoriaIngresoId Int
   amount Decimal @db.Decimal(10, 2)
   date DateTime @default(now())
 
   user usuario @relation(fields: [userId], references: [id])
-  category categoria @relation(fields: [categoryId], references: [id])
+  categoriaIngreso categoriaIngreso @relation(fields: [categoriaIngresoId], references: [id])
+}
+
+model gasto {
+  id Int @id @default(autoincrement())
+  userId Int
+  categoryGastoId Int
+  amount Decimal @db.Decimal(10, 2)
+  date DateTime @default(now())
+
+  user usuario @relation(fields: [userId], references: [id])
+  categoryGasto categoriaGasto @relation(fields: [categoryGastoId], references: [id])
 }
