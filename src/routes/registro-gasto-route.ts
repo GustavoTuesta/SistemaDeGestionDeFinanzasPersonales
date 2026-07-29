@@ -7,3 +7,5 @@ router.post(
     '/registro-gasto', 
     registrarGastoController
 )
+
+export default router;
