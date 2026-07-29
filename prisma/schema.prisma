@@ -15,21 +15,39 @@ model usuario {
   password  String
   createdAt DateTime @default(now())
   ingresos ingreso[]
+  gastos gasto[]
 }
 
-model categoria {
+model categoriaIngreso {
   id Int @id @default(autoincrement())
   name String
   ingresos ingreso[]
 }
 
+model categoriaGasto {
+  id Int @id @default(autoincrement())
+  name String
+  gastos gasto[]
+}
+
 model ingreso {
   id Int @id @default(autoincrement())
   userId Int
-  categoryId Int
+  categoryIngresoId Int
   amount Decimal @db.Decimal(10, 2)
   date DateTime @default(now())
 
   user usuario @relation(fields: [userId], references: [id])
-  category categoria @relation(fields: [categoryId], references: [id])
+  categoryIngreso categoriaIngreso @relation(fields: [categoryIngresoId], references: [id])
+}
+
+model gasto {
+  id Int @id @default(autoincrement())
+  userId Int
+  categoryGastoId Int
+  amount Decimal @db.Decimal(10, 2)
+  date DateTime @default(now())
+
+  user usuario @relation(fields: [userId], references: [id])
+  categoryGasto categoriaGasto @relation(fields: [categoryGastoId], references: [id])
 }

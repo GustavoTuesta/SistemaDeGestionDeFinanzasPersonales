@@ -1,5 +1,5 @@
 export interface IngresosDto {
     userId: number
-    categoryId: number
+    categoryIngresoId: number
     amount: number
 }
