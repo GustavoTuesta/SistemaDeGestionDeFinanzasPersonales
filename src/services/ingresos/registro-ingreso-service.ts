@@ -2,9 +2,9 @@ import { prisma } from "../../lib/prisma"
 import { IngresosDto } from "../../dto/ingreso-dto"
 
 export async function registrarIngresoService(data: IngresosDto) {
-    const { userId, categoryId, amount } = data;
+    const { userId, categoryIngresoId, amount } = data;
 
-    if(categoryId == null || categoryId <=  0) {
+    if(categoryIngresoId == null || categoryIngresoId <=  0) {
         throw new Error('Categoria no valida');
     }
 
@@ -12,9 +12,9 @@ export async function registrarIngresoService(data: IngresosDto) {
         throw new Error('Cantidad no valida');
     }
 
-    const categoria = await prisma.categoria.findUnique({
+    const categoria = await prisma.categoriaIngreso.findUnique({
         where: {
-            id: categoryId,
+            id: categoryIngresoId,
         }
     });
 
@@ -24,7 +24,7 @@ export async function registrarIngresoService(data: IngresosDto) {
     const registrarIngreso = await prisma.ingreso.create({
         data: {
             userId,
-            categoryId,
+            categoryIngresoId,
             amount,
         }, 
     });

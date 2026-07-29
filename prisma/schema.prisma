@@ -15,6 +15,7 @@ model usuario {
   password  String
   createdAt DateTime @default(now())
   ingresos ingreso[]
+  gastos gasto[]
 }
 
 model categoriaIngreso {
@@ -32,12 +33,12 @@ model categoriaGasto {
 model ingreso {
   id Int @id @default(autoincrement())
   userId Int
-  categoriaIngresoId Int
+  categoryIngresoId Int
   amount Decimal @db.Decimal(10, 2)
   date DateTime @default(now())
 
   user usuario @relation(fields: [userId], references: [id])
-  categoriaIngreso categoriaIngreso @relation(fields: [categoriaIngresoId], references: [id])
+  categoryIngreso categoriaIngreso @relation(fields: [categoryIngresoId], references: [id])
 }
 
 model gasto {
