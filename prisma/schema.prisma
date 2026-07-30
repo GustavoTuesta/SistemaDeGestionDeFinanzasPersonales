@@ -51,3 +51,11 @@ model gasto {
   user usuario @relation(fields: [userId], references: [id])
   categoryGasto categoriaGasto @relation(fields: [categoryGastoId], references: [id])
 }
+
+model prestamos {
+  id Int @id @default(autoincrement())
+  userId Int
+  nombrePrestamo String
+  amount Decimal @db.Decimal(10, 2)
+  date DateTime @default(now())
+}
