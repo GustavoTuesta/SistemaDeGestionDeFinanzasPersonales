@@ -1,8 +1,8 @@
 import express from 'express'
-import loginRoute from './routes/login-route'
-import registerRoute from './routes/register-route'
-import registroIngresoRoute from './routes/registro-ingreso-route'
-import registroGastoRoute from './routes/registro-gasto-route'
+import loginRoute from './login/login-route'
+import registerRoute from './registro/register-route'
+import registroIngresoRoute from './ingresos/registro-ingreso-route'
+import registroGastoRoute from './gastos/registro-gasto-route'
 
 const app = express()
 app.use(express.json()) //middleware que permite transformar la req.body de una peticion a un json

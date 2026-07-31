@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { gastosDto } from "../../dto/gasto-dto";
-import { registrarGastoService } from '../../services/gastos/registrar-gasto-service'
+import { gastosDto } from "./gasto-dto";
+import { registrarGastoService } from './registrar-gasto-service'
 
 export async function registrarGastoController(
     req: Request<{},{}, gastosDto>,
