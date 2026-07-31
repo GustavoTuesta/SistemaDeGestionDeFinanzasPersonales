@@ -52,7 +52,7 @@ model gasto {
   categoryGasto categoriaGasto @relation(fields: [categoryGastoId], references: [id])
 }
 
-model prestamos {
+model prestamo {
   id Int @id @default(autoincrement())
   userId Int
   nombrePrestamo String
