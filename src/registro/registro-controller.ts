@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { RegisterDto } from "./register-dto";
-import { RegisterService } from "./register-service"
+import { RegisterDto } from "./registro-dto";
+import { RegisterService } from "./registro-service"
 
 export async function RegisterController(
     req: Request<{},{}, RegisterDto>,

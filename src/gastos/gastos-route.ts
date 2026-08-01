@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { registrarGastoController } from './registro-gastos-controller'
+import { registrarGastoController } from './gastos-controller'
 
 const router = Router();
 
