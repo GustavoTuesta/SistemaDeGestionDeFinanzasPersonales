@@ -1,5 +1,5 @@
-import { prisma } from "../../lib/prisma"
-import { RegisterDto } from "../../dto/register-dto"
+import { prisma } from "../lib/prisma"
+import { RegisterDto } from "./registro-dto"
 import bcrypt from "bcrypt"
 
 export async function RegisterService(data: RegisterDto) {
