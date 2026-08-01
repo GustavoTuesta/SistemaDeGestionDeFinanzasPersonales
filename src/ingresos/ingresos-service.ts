@@ -1,5 +1,5 @@
 import { prisma } from "../lib/prisma"
-import { IngresosDto } from "./ingreso-dto"
+import { IngresosDto } from "./ingresos-dto"
 
 export async function registrarIngresoService(data: IngresosDto) {
     const { userId, categoryIngresoId, amount } = data;
