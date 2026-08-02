@@ -4,7 +4,7 @@ import { prestamoController } from './prestamos-controller'
 const router = Router()
 
 router.post(
-    '/prestamo',
+    '/registro-prestamo',
     prestamoController
 )
 
