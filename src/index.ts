@@ -1,19 +1,24 @@
 import express from 'express'
 import loginRoute from './login/login-route'
-import registerRoute from './registro/register-route'
-import registroIngresoRoute from './ingresos/registro-ingreso-route'
-import registroGastoRoute from './gastos/registro-gasto-route'
-import registrarPrestamoRoute from './prestamos/prestamo-route'
+import registerRoute from './registro/registro-route'
+import registroIngresoRoute from './ingresos/ingresos-route'
+import registroGastoRoute from './gastos/gastos-route'
+import registrarPrestamoRoute from './prestamos/prestamos-route'
 
 const app = express()
 app.use(express.json()) //middleware que permite transformar la req.body de una peticion a un json
 
 const PORT = 3000
 
+// endpoint login: /api/login
 app.use("/api", loginRoute)
+// endpoint registro: /api/register 
 app.use("/api", registerRoute)
+// endpoint registrar ingresos: /api/registro-ingreso
 app.use("/api", registroIngresoRoute)
+// endpoint registrar gastos: /api/registro-gasto
 app.use("/api", registroGastoRoute)
+// endpoint registrar prestamo: /api/registro-prestamo
 app.use("/api", registrarPrestamoRoute)
 
 app.listen(PORT, () =>{

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { prestamoDto } from "./prestamo-dto";
-import { prestamoService} from "./prestamo-service"
+import { prestamoDto } from "./prestamos-dto";
+import { prestamoService} from "./prestamos-service"
 
 export async function prestamoController(
     req: Request<{}, {}, prestamoDto>,
