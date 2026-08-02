@@ -10,10 +10,15 @@ app.use(express.json()) //middleware que permite transformar la req.body de una 
 
 const PORT = 3000
 
+// endpoint login: /api/login
 app.use("/api", loginRoute)
+// endpoint registro: /api/register 
 app.use("/api", registerRoute)
+// endpoint registrar ingresos: /api/registro-ingreso
 app.use("/api", registroIngresoRoute)
+// endpoint registrar gastos: /api/registro-gasto
 app.use("/api", registroGastoRoute)
+// endpoint registrar prestamo: /api/registro-prestamo
 app.use("/api", registrarPrestamoRoute)
 
 app.listen(PORT, () =>{
