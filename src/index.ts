@@ -6,6 +6,7 @@ import eliminarRegistroIngresoRoute from './ingresos/ingresos-route';
 import registroGastoRoute from './gastos/gastos-route'
 import eliminarRegistroGastoRouter from './gastos/gastos-route'
 import registrarPrestamoRoute from './prestamos/prestamos-route'
+import eliminarRegistroPrestamoRoute from './prestamos/prestamos-route'
 
 
 const app = express()
@@ -31,6 +32,8 @@ app.use("/api", eliminarRegistroGastoRouter)
 
 // endpoint registrar prestamo: /api/registro-prestamo
 app.use("/api", registrarPrestamoRoute);
+// endpoint eliminar registro prestamo: /api/prestamo/:id
+app.use("/api", eliminarRegistroPrestamoRoute)
 
 app.listen(PORT, () =>{
     console.log(`http://localhost:${PORT}`)
