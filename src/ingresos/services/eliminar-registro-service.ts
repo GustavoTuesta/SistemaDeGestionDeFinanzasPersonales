@@ -1,15 +1,8 @@
 import { prisma } from '../../lib/prisma';
+import { eliminarRegistro } from '../../shared/services/eliminar-registro-service';
+import { validarRegistro } from '../../shared/services/validar-registro-service';
 
 export async function eliminarRegistroIngresoService(id: number) {
-    if(!id) {
-        throw new Error('Id de registro invalida');
-    }
-
-    const registroEliminado = await prisma.ingreso.delete({
-        where: {
-            id,
-        }
-    });
-
-    return registroEliminado;
+    await validarRegistro(prisma.ingreso, id);
+    return await eliminarRegistro(prisma.ingreso, id);
 }
