@@ -1,5 +1,5 @@
-import { prisma} from "../lib/prisma";
-import { prestamoDto } from "./prestamos-dto";
+import { prisma} from "../../lib/prisma";
+import { prestamoDto } from "../prestamos-dto";
 
 export async function prestamoService(data: prestamoDto) {
     const { userId, nombrePrestamo, amount} = data;
