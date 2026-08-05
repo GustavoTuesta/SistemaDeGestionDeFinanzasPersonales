@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { eliminarRegistroIngresoService } from "../services/eliminar-registro-service";
+import { validarID } from "../../shared/services/validar-id-service";
 
 export async function eliminarRegistroIngresoController(
     req: Request,
@@ -7,6 +8,7 @@ export async function eliminarRegistroIngresoController(
 ): Promise<void> {
     try {
         const id = Number(req.params.id);
+        validarID(id);
         const registroEliminado = await eliminarRegistroIngresoService(id);
         res.status(200).json({ registroEliminado });    
     } catch (error) {
