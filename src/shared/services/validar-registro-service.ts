@@ -5,20 +5,20 @@ const prisma = new PrismaClient();
 export async function validarRegistro(
     model: {
         findUnique(args: {
-            where: {
-                id: number,
-            }
-        }):Promise<any>;
+            where: Record<string, unknown>;
+        }):Promise<unknown>;
     },
-    id: number
+    valorBuscar: string,
+    id: number,
+    mensaje: string
 ) {
     const existente = await model.findUnique({
         where: {
-            id,
+            [valorBuscar]: id,
         }
     });
 
     if(!existente){
-        throw new Error('El registro no existe');
+        throw new Error(mensaje);
     }
 }
