@@ -3,6 +3,6 @@ import { eliminarRegistro } from '../../shared/services/eliminar-registro-servic
 import { validarRegistro } from '../../shared/services/validar-registro-service'
 
 export async function eliminarRegistroGastoService(id: number) {
-    await validarRegistro(prisma.gasto, id);
+    await validarRegistro(prisma.gasto, "id" , id, "El registro no existe");
     return await eliminarRegistro(prisma.gasto, id);
 }
