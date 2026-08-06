@@ -1,13 +1,11 @@
 import { Request, Response } from "express";
 import { eliminarRegistroPrestamoService } from "../services/eliminar-prestamos-service";
+import { validarNumero } from "../../shared/services/validar-id-service";
 
 export async function eliminarRegistroPrestamoController(req: Request, res: Response) {
-    
     try {
         const id = Number(req.params.id);
-        if(Number.isNaN(id) || id <= 0){
-            throw new Error('Id invalida');
-        }
+        validarNumero(id, "id");
         const eliminarRegistro = await eliminarRegistroPrestamoService(id);
         res.status(200).json({ eliminarRegistro });    
     } catch (error) {

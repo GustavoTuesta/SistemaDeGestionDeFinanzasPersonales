@@ -1,34 +1,15 @@
 import { prisma } from '../../lib/prisma'
-import { gastosDto } from "../gastos-dto";
+import { crearRegistroDto } from '../../shared/dto/crearRegistroDto';
+import { validarRegistro } from '../../shared/services/validar-registro-service';
+import { crearRegistro } from '../../shared/services/crear-registro-service';
 
-export async function registrarGastoService(data: gastosDto) {
-    const { userId, categoryGastoId, amount } = data;
+export async function registrarGastoService(data: crearRegistroDto) {
+    const { userId, categoryId, amount } = data;
 
-    if(categoryGastoId == null || categoryGastoId <= 0){
-        return new Error('Categoria no valida')
-    }
+    await validarRegistro(prisma.usuario, "id", userId, "El usuario no existe");
+    await validarRegistro(prisma.categoriaGasto, "id", categoryId, "La categoria no existe");
 
-    if(amount == null || amount <= 0){
-        return new Error('Cantidad ingresada no valida')
-    }
-
-    const categoria = await prisma.categoriaGasto.findUnique({
-        where: {
-            id: categoryGastoId,
-        }
-    });
-
-    if(!categoria) {
-        return new Error('Categoria no encontrada');
-    }
-
-    const registrarGasto = await prisma.gasto.create({
-        data: {
-            userId,
-            categoryGastoId,
-            amount,
-        }
-    });
+    const registrarGasto = await crearRegistro(prisma.gasto, "categoryGastoId", data)
 
     return registrarGasto;
 }

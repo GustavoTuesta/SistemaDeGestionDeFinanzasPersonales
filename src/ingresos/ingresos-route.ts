@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { registrarIngresoController } from "./controllers/crear-registro-controller"
-import { eliminarRegistroIngresoController } from "./controllers/eliminar-registro-controller";
+import { registrarIngresoController } from "./controllers/crear-ingreso-controller"
+import { eliminarRegistroIngresoController } from "./controllers/eliminar-ingreso-controller";
 
 const router = Router();
 
