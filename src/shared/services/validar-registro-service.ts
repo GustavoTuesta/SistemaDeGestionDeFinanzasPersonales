@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { NotFoundError } from "../../exceptions/NotFoundError";
 
 const prisma = new PrismaClient();
 
@@ -19,6 +20,6 @@ export async function validarRegistro(
     });
 
     if(!existente){
-        throw new Error(mensaje);
+        throw new NotFoundError(mensaje);
     }
 }
