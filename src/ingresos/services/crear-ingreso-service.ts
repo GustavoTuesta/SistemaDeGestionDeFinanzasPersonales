@@ -6,8 +6,8 @@ import { validarRegistro } from "../../shared/services/validar-registro-service"
 export async function registrarIngresoService(data: crearRegistroDto) {
     const { userId, categoryId} = data;
 
-    await validarRegistro(prisma.usuario, "id", userId, "El usuario no existe");
-    await validarRegistro(prisma.categoriaIngreso, "id", categoryId, "La categoria no existe");
+    await validarRegistro(prisma.usuario, "id", userId, "Usuario no encontrado");
+    await validarRegistro(prisma.categoriaIngreso, "id", categoryId, "Categoria no encontrada");
     
     const registrarIngreso = await crearRegistro(prisma.ingreso, "categoryIngresoId", data)
 
