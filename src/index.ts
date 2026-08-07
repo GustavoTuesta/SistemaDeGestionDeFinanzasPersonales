@@ -4,6 +4,7 @@ import registerRoute from './registro/registro-route'
 import ingresoRoute from './ingresos/ingresos-route'
 import gastoRoute from './gastos/gastos-route'
 import prestamoRoute from './prestamos/prestamos-route'
+import { errorHandler } from './middlewares/errorHandler'
 
 
 const app = express()
@@ -27,6 +28,9 @@ app.use("/api", gastoRoute)
 // endpoint registrar prestamo: /api/registro-prestamo
 // endpoint eliminar registro prestamo: /api/prestamo/:id
 app.use("/api", prestamoRoute);
+
+app.use(errorHandler);
+
 
 app.listen(PORT, () =>{
     console.log(`http://localhost:${PORT}`)
