@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { eliminarRegistroPrestamoService } from "../services/eliminar-prestamos-service";
-import { validarNumero } from "../../shared/services/validar-id-service";
+import { validarNumero } from "../../shared/services/validar-numero-service";
 
 export async function eliminarRegistroPrestamoController(req: Request, res: Response) {
     try {
