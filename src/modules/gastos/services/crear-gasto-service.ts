@@ -1,7 +1,7 @@
-import { prisma } from '../../lib/prisma'
-import { crearRegistroDto } from '../../shared/dto/crearRegistroDto';
-import { validarRegistro } from '../../shared/services/validar-registro-service';
-import { crearRegistro } from '../../shared/services/crear-registro-service';
+import { prisma } from '../../../lib/prisma'
+import { crearRegistroDto } from '../../../shared/dto/crearRegistroDto';
+import { validarRegistro } from '../../../shared/services/validar-registro-service';
+import { crearRegistro } from '../../../shared/services/crear-registro-service';
 
 export async function registrarGastoService(data: crearRegistroDto) {
     const { userId, categoryId, amount } = data;

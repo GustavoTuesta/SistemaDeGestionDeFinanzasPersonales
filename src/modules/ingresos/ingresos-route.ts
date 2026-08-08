@@ -5,7 +5,7 @@ import { eliminarRegistroIngresoController } from "./controllers/eliminar-ingres
 const router = Router();
 
 router.post(
-    '/registro-ingreso',
+    '/ingreso',
     registrarIngresoController
 )
 

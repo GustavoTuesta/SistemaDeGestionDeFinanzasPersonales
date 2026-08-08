@@ -17,15 +17,15 @@ app.use("/api", loginRoute);
 // endpoint registro: /api/register 
 app.use("/api", registerRoute);
 
-// endpoint registrar ingresos: /api/registro-ingreso
+// endpoint registrar ingresos: /api/ingreso
 // endpoint eliminar registro ingreso: /api/ingreso/:id
 app.use("/api", ingresoRoute);
 
-// endpoint registrar gastos: /api/registro-gasto
+// endpoint registrar gastos: /api/gasto
 // endpoint eliminar registro gasto: /api/gasto/:id
 app.use("/api", gastoRoute)
 
-// endpoint registrar prestamo: /api/registro-prestamo
+// endpoint registrar prestamo: /api/prestamo
 // endpoint eliminar registro prestamo: /api/prestamo/:id
 app.use("/api", prestamoRoute);
 

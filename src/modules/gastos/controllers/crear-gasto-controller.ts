@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { registrarGastoService } from '../services/crear-gasto-service'
-import { validarNumero } from "../../shared/services/validar-numero-service";
-import { crearRegistroDto } from "../../shared/dto/crearRegistroDto";
+import { validarNumero } from "../../../shared/services/validar-numero-service";
+import { crearRegistroDto } from "../../../shared/dto/crearRegistroDto";
 
 export async function registrarGastoController(
     req: Request<{},{}, crearRegistroDto>,

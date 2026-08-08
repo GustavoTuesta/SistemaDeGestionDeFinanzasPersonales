@@ -5,7 +5,7 @@ import { eliminarRegistroGastoController } from './controllers/eliminar-gasto-co
 const router = Router();
 
 router.post(
-    '/registro-gasto', 
+    '/gasto', 
     registrarGastoController
 );
 

@@ -6,4 +6,5 @@ export function validarNumero(numero: number, nombreCampo: string) {
     } else if(numero <= 0) {
         throw new BadRequest(`${nombreCampo} tiene que ser mayor a 0`);
     }
+    return numero;
 }
