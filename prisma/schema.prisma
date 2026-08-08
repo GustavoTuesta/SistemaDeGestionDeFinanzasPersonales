@@ -33,23 +33,23 @@ model categoriaGasto {
 model ingreso {
   id Int @id @default(autoincrement())
   userId Int
-  categoryIngresoId Int
+  categoryId Int
   amount Decimal @db.Decimal(10, 2)
   date DateTime @default(now())
 
   user usuario @relation(fields: [userId], references: [id])
-  categoryIngreso categoriaIngreso @relation(fields: [categoryIngresoId], references: [id])
+  categoryIngreso categoriaIngreso @relation(fields: [categoryId], references: [id])
 }
 
 model gasto {
   id Int @id @default(autoincrement())
   userId Int
-  categoryGastoId Int
+  categoryId Int
   amount Decimal @db.Decimal(10, 2)
   date DateTime @default(now())
 
   user usuario @relation(fields: [userId], references: [id])
-  categoryGasto categoriaGasto @relation(fields: [categoryGastoId], references: [id])
+  categoryGasto categoriaGasto @relation(fields: [categoryId], references: [id])
 }
 
 model prestamo {
