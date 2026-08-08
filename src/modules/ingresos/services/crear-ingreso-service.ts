@@ -7,6 +7,6 @@ export async function registrarIngresoService(data: crearRegistroDto) {
     const { userId, categoryId} = data;
     await validarRegistro(prisma.usuario, "id", userId, "Usuario no encontrado");
     await validarRegistro(prisma.categoriaIngreso, "id", categoryId, "Categoria no encontrada");
-    const registrarIngreso = await crearRegistro(prisma.ingreso, "categoryIngresoId", data)
+    const registrarIngreso = await crearRegistro(prisma.ingreso, "categoryId", data)
     return registrarIngreso;    
 }

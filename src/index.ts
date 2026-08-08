@@ -1,9 +1,9 @@
 import express from 'express'
-import loginRoute from './login/login-route'
-import registerRoute from './registro/registro-route'
-import ingresoRoute from './ingresos/ingresos-route'
-import gastoRoute from './gastos/gastos-route'
-import prestamoRoute from './prestamos/prestamos-route'
+import loginRoute from './modules/login/login-route'
+import registerRoute from './modules/registro/registro-route'
+import ingresoRoute from './modules/ingresos/ingresos-route'
+import gastoRoute from './modules/gastos/gastos-route'
+import prestamoRoute from './modules/prestamos/prestamos-route'
 import { errorHandler } from './middlewares/errorHandler'
 
 
