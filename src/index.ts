@@ -1,9 +1,9 @@
 import express from 'express'
-import loginRoute from './login/login-route'
-import registerRoute from './registro/registro-route'
-import ingresoRoute from './ingresos/ingresos-route'
-import gastoRoute from './gastos/gastos-route'
-import prestamoRoute from './prestamos/prestamos-route'
+import loginRoute from './modules/login/login-route'
+import registerRoute from './modules/registro/registro-route'
+import ingresoRoute from './modules/ingresos/ingresos-route'
+import gastoRoute from './modules/gastos/gastos-route'
+import prestamoRoute from './modules/prestamos/prestamos-route'
 import { errorHandler } from './middlewares/errorHandler'
 
 
@@ -17,15 +17,15 @@ app.use("/api", loginRoute);
 // endpoint registro: /api/register 
 app.use("/api", registerRoute);
 
-// endpoint registrar ingresos: /api/registro-ingreso
+// endpoint registrar ingresos: /api/ingreso
 // endpoint eliminar registro ingreso: /api/ingreso/:id
 app.use("/api", ingresoRoute);
 
-// endpoint registrar gastos: /api/registro-gasto
+// endpoint registrar gastos: /api/gasto
 // endpoint eliminar registro gasto: /api/gasto/:id
 app.use("/api", gastoRoute)
 
-// endpoint registrar prestamo: /api/registro-prestamo
+// endpoint registrar prestamo: /api/prestamo
 // endpoint eliminar registro prestamo: /api/prestamo/:id
 app.use("/api", prestamoRoute);
 

@@ -1,4 +1,4 @@
-import { prisma } from "../lib/prisma"
+import { prisma } from "../../lib/prisma"
 import { RegisterDto } from "./registro-dto"
 import bcrypt from "bcrypt"
 

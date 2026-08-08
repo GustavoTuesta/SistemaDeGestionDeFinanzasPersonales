@@ -5,7 +5,7 @@ import { eliminarRegistroPrestamoController } from "./controllers/eliminar-prest
 const router = Router()
 
 router.post(
-    '/registro-prestamo',
+    '/prestamo',
     prestamoController
 )
 

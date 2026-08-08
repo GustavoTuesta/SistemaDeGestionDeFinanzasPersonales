@@ -1,4 +1,4 @@
-import { prisma } from "../lib/prisma";
+import { prisma } from "../../lib/prisma";
 import { LoginDto } from "./login-dto";
 import bcrypt from "bcrypt";
 import { generarToken } from "./generarToken-service"
