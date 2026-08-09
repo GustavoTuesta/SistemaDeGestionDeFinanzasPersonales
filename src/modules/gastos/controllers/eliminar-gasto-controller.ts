@@ -8,7 +8,7 @@ export async function eliminarRegistroGastoController(
     next: NextFunction
 ): Promise<void> {
     try {
-        const id = validarNumero(Number(req.params.id), "id");
+        const id = validarNumero(req.params.id, "id");
         const eliminarGasto = await eliminarRegistroGastoService(id);
         res.status(200).json({ eliminarGasto })
     } catch (error) {
