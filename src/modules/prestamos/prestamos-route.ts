@@ -1,8 +1,9 @@
 import { Router } from "express";
 import { prestamoController } from './controllers/crear-prestamo-controller'
 import { eliminarRegistroPrestamoController } from "./controllers/eliminar-prestamo-controller";
+import { actualizarPrestamoController } from "./controllers/actualizar-prestamo-controller";
 
-const router = Router()
+const router = Router();
 
 router.post(
     '/prestamo',
@@ -14,4 +15,8 @@ router.delete(
     eliminarRegistroPrestamoController
 )
 
+router.patch(
+    '/prestamo/:id',
+    actualizarPrestamoController
+)
 export default router;
