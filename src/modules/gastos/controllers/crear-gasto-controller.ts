@@ -9,9 +9,9 @@ export async function registrarGastoController(
     next: NextFunction
 ): Promise<void> {
     try {
-        validarNumero(Number(req.body.userId), "userId");
-        validarNumero(Number(req.body.categoryId), "categoryId");
-        validarNumero(Number(req.body.amount), "amount");
+        validarNumero(req.body.userId, "userId");
+        validarNumero(req.body.categoryId, "categoryId");
+        validarNumero(req.body.amount, "amount");
         const nuevoGasto = await registrarGastoService(req.body)
         res.status(201).json({ nuevoGasto });    
     } catch (error) {

@@ -1,13 +1,10 @@
 import { prisma} from "../../../lib/prisma";
-import { validarNumero } from "../../../shared/services/validar-numero-service";
-import { prestamoDto } from "../prestamos-dto";
+import { validarUsuario } from "../../../shared/services/validar-usuario-service";
+import { prestamoDto } from "../dto/prestamos-dto";
 
 export async function prestamoService(data: prestamoDto) {
     const { userId, nombrePrestamo, amount} = data;
-    if(!nombrePrestamo || nombrePrestamo == ''){
-        console.error('Nombre invalido');
-    }
-    validarNumero(amount, "amount")
+    await validarUsuario(userId);
     const registroPrestamo = await prisma.prestamo.create({
         data: {
             userId,
