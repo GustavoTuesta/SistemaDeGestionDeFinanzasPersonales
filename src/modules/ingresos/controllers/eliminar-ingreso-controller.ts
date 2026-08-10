@@ -8,7 +8,7 @@ export async function eliminarRegistroIngresoController(
     next: NextFunction
 ): Promise<void> {
     try {
-        const id = validarNumero(Number(req.params.id), "id");
+        const id = validarNumero(req.params.id, "id");
         const registroEliminado = await eliminarRegistroIngresoService(id);
         res.status(200).json({ registroEliminado });    
     } catch (error) {
