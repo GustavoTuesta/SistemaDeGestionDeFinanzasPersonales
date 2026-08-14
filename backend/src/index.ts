@@ -12,25 +12,17 @@ app.use(express.json()) //middleware que permite transformar la req.body de una 
 
 const PORT = process.env.PORT!;
 
-// endpoint login: /api/login
 app.use("/api", loginRoute);
-// endpoint registro: /api/register 
+
 app.use("/api", registerRoute);
 
-// endpoint registrar ingresos: /api/ingreso
-// endpoint eliminar registro ingreso: /api/ingreso/:id
 app.use("/api", ingresoRoute);
 
-// endpoint registrar gastos: /api/gasto
-// endpoint eliminar registro gasto: /api/gasto/:id
 app.use("/api", gastoRoute)
 
-// endpoint registrar prestamo: /api/prestamo
-// endpoint eliminar registro prestamo: /api/prestamo/:id
 app.use("/api", prestamoRoute);
 
 app.use(errorHandler);
-
 
 app.listen(PORT, () =>{
     console.log(`http://localhost:${PORT}`)
