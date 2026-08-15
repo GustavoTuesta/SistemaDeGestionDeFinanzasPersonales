@@ -13,12 +13,13 @@ export async function validarRegistro(
     id: number,
     mensaje: string
 ) {
+    // recibe el modelo y busca el campo ingresado en (valorBuscar) y la id, recibida.
     const existente = await model.findUnique({
         where: {
             [valorBuscar]: id,
         }
     });
-
+    // retorna error de registro no encontrado si no encuentra la id ingresada
     if(!existente){
         throw new NotFoundError(mensaje);
     }
