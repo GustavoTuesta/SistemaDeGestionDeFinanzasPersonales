@@ -1,0 +1,1246 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Sistema de Finanzas Personales API",
+    "version": "1.0.0",
+    "description": "API RESTful para la gestión y control de finanzas personales.\nPermite registrar transacciones financieras organizadas en módulos de **Autenticación**, **Ingresos**, **Gastos** y **Préstamos**.\n\nDocumentada y renderizada con **Scalar API Reference**.",
+    "contact": {
+      "name": "Equipo de Desarrollo"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor de Desarrollo Local"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Autenticación",
+      "description": "Endpoints para inicio de sesión y registro de usuarios."
+    },
+    {
+      "name": "Ingresos",
+      "description": "Operaciones para la gestión de ingresos financieros (crear, listar, actualizar y eliminar)."
+    },
+    {
+      "name": "Gastos",
+      "description": "Operaciones para la gestión y seguimiento de gastos financieros del usuario."
+    },
+    {
+      "name": "Préstamos",
+      "description": "Operaciones para la administración y control de préstamos adquiridos u otorgados."
+    }
+  ],
+  "paths": {
+    "/api/login": {
+      "post": {
+        "tags": [
+          "Autenticación"
+        ],
+        "summary": "Iniciar sesión",
+        "description": "Autentica a un usuario mediante correo electrónico y contraseña, devolviendo un token JWT firmado.",
+        "operationId": "login",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Inicio de sesión exitoso. Retorna el token JWT.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Credenciales inválidas o datos incorrectos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor o usuario no encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/register": {
+      "post": {
+        "tags": [
+          "Autenticación"
+        ],
+        "summary": "Registrar usuario",
+        "description": "Crea una nueva cuenta de usuario en el sistema con contraseña encriptada mediante bcrypt.",
+        "operationId": "register",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuario registrado satisfactoriamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de validación (correo ya registrado o contraseña insegura menor a 8 caracteres).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ingreso/{id}": {
+      "get": {
+        "tags": [
+          "Ingresos"
+        ],
+        "summary": "Listar ingresos por usuario",
+        "description": "Obtiene la lista completa de ingresos registrados que pertenecen a un usuario específico.",
+        "operationId": "listarIngresosPorUsuario",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del usuario cuyos ingresos se desean consultar",
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de ingresos obtenida con éxito.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListarIngresosResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "El parámetro id no es válido o es menor/igual a 0.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Ingresos"
+        ],
+        "summary": "Actualizar ingreso",
+        "description": "Actualiza los campos de un registro de ingreso existente (categoría y/o monto).",
+        "operationId": "actualizarIngreso",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del registro de ingreso a actualizar",
+            "schema": {
+              "type": "integer",
+              "example": 5
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActualizarIngresoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Ingreso actualizado exitosamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActualizarIngresoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validación fallida para los campos numéricos (id, categoryId o amount).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Registro de ingreso no encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Ingresos"
+        ],
+        "summary": "Eliminar ingreso",
+        "description": "Elimina de forma permanente un registro de ingreso específico por su ID.",
+        "operationId": "eliminarIngreso",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del registro de ingreso a eliminar",
+            "schema": {
+              "type": "integer",
+              "example": 5
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ingreso eliminado satisfactoriamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EliminarIngresoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "El ID proporcionado no es un número válido mayor a 0.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "El ingreso no existe en la base de datos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ingreso": {
+      "post": {
+        "tags": [
+          "Ingresos"
+        ],
+        "summary": "Registrar ingreso",
+        "description": "Crea un nuevo registro de ingreso asociado a un usuario y a una categoría de ingreso existente.",
+        "operationId": "crearIngreso",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearIngresoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Ingreso registrado satisfactoriamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CrearIngresoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos numéricos inválidos en el cuerpo de la petición (userId, categoryId o amount).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuario o categoría de ingreso no encontrados.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/gasto/{id}": {
+      "get": {
+        "tags": [
+          "Gastos"
+        ],
+        "summary": "Listar gastos por usuario",
+        "description": "Devuelve todos los gastos registrados asociados al ID del usuario.",
+        "operationId": "listarGastosPorUsuario",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del usuario cuyos gastos se desean listar",
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de gastos obtenida con éxito.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListarGastosResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "El parámetro id debe ser un número entero mayor a 0.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Gastos"
+        ],
+        "summary": "Actualizar gasto",
+        "description": "Actualiza el monto y/o la categoría de un gasto existente especificado por su ID.",
+        "operationId": "actualizarGasto",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del registro de gasto a actualizar",
+            "schema": {
+              "type": "integer",
+              "example": 3
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActualizarGastoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Gasto actualizado exitosamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActualizarGastoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de validación en parámetros numéricos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Registro de gasto no encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Gastos"
+        ],
+        "summary": "Eliminar gasto",
+        "description": "Elimina de la base de datos el gasto indicado por su ID.",
+        "operationId": "eliminarGasto",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del registro de gasto a eliminar",
+            "schema": {
+              "type": "integer",
+              "example": 3
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Gasto eliminado exitosamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EliminarGastoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "El parámetro id debe ser un número mayor a 0.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Gasto no encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/gasto": {
+      "post": {
+        "tags": [
+          "Gastos"
+        ],
+        "summary": "Registrar gasto",
+        "description": "Registra un nuevo gasto financiero vinculado al usuario y a su correspondiente categoría de gasto.",
+        "operationId": "crearGasto",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearGastoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Gasto registrado exitosamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CrearGastoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos numéricos inválidos o menores/iguales a 0.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuario o categoría de gasto no encontrados.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/prestamo/{id}": {
+      "get": {
+        "tags": [
+          "Préstamos"
+        ],
+        "summary": "Listar préstamos por usuario",
+        "description": "Devuelve todos los préstamos vinculados al ID del usuario consultado.",
+        "operationId": "listarPrestamosPorUsuario",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del usuario cuyos préstamos se desean consultar",
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de préstamos obtenida con éxito.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListarPrestamosResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "El ID no es un número válido mayor a 0.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Préstamos"
+        ],
+        "summary": "Actualizar préstamo",
+        "description": "Actualiza el nombre y/o monto de un préstamo registrado previamente.",
+        "operationId": "actualizarPrestamo",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del registro de préstamo a actualizar",
+            "schema": {
+              "type": "integer",
+              "example": 2
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActualizarPrestamoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Préstamo actualizado exitosamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActualizarPrestamoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de validación (nombre vacío o monto menor/igual a 0).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Registro de préstamo no encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Préstamos"
+        ],
+        "summary": "Eliminar préstamo",
+        "description": "Elimina permanentemente el registro del préstamo por su ID.",
+        "operationId": "eliminarPrestamo",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del préstamo a eliminar",
+            "schema": {
+              "type": "integer",
+              "example": 2
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Préstamo eliminado exitosamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EliminarPrestamoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "El ID proporcionado no es válido.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Préstamo no encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/prestamo": {
+      "post": {
+        "tags": [
+          "Préstamos"
+        ],
+        "summary": "Registrar préstamo",
+        "description": "Crea un nuevo registro de préstamo asociado a un usuario.",
+        "operationId": "crearPrestamo",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearPrestamoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Préstamo registrado exitosamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CrearPrestamoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Nombre de préstamo vacío o montos numéricos inválidos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Descripción detallada del error",
+            "example": "Error interno del servidor"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      },
+      "BadRequestResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Mensaje explicativo del fallo de validación",
+            "example": "id tiene que ser un número"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      },
+      "NotFoundResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Mensaje de entidad no encontrada",
+            "example": "Usuario no encontrado"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      },
+      "LoginDto": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Correo electrónico del usuario",
+            "example": "juan.perez@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "Contraseña del usuario",
+            "example": "SecretPass123!"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Token de acceso JWT firmado",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imp1YW4ucGVyZXpAZXhhbXBsZS5jb20ifQ..."
+          }
+        }
+      },
+      "RegisterDto": {
+        "type": "object",
+        "required": [
+          "name",
+          "lastname",
+          "email",
+          "password"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nombre del usuario",
+            "example": "Juan"
+          },
+          "lastname": {
+            "type": "string",
+            "description": "Apellido del usuario",
+            "example": "Pérez"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Correo electrónico único",
+            "example": "juan.perez@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "Contraseña (mínimo 8 caracteres)",
+            "minLength": 8,
+            "example": "SecretPass123!"
+          }
+        }
+      },
+      "RegisterResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "Identificador único generado para el usuario",
+                "example": 1
+              },
+              "name": {
+                "type": "string",
+                "example": "Juan"
+              },
+              "lastname": {
+                "type": "string",
+                "example": "Pérez"
+              },
+              "email": {
+                "type": "string",
+                "example": "juan.perez@example.com"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2026-10-08T04:12:00.000Z"
+              }
+            }
+          }
+        }
+      },
+      "CrearIngresoDto": {
+        "type": "object",
+        "required": [
+          "userId",
+          "categoryId",
+          "amount"
+        ],
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "description": "ID del usuario propietario del ingreso",
+            "example": 1
+          },
+          "categoryId": {
+            "type": "integer",
+            "description": "ID de la categoría de ingreso",
+            "example": 2
+          },
+          "amount": {
+            "type": "number",
+            "format": "float",
+            "description": "Monto del ingreso (debe ser mayor a 0)",
+            "example": 1500.5
+          }
+        }
+      },
+      "ActualizarIngresoDto": {
+        "type": "object",
+        "properties": {
+          "categoryId": {
+            "type": "integer",
+            "description": "Nuevo ID de categoría de ingreso",
+            "example": 3
+          },
+          "amount": {
+            "type": "number",
+            "format": "float",
+            "description": "Nuevo monto del ingreso (mayor a 0)",
+            "example": 1800
+          }
+        }
+      },
+      "IngresoEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "userId": {
+            "type": "integer",
+            "example": 1
+          },
+          "categoryId": {
+            "type": "integer",
+            "example": 2
+          },
+          "amount": {
+            "type": "number",
+            "example": 1500.5
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-10-08T04:15:00.000Z"
+          }
+        }
+      },
+      "ListarIngresosResponse": {
+        "type": "object",
+        "properties": {
+          "registros": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IngresoEntity"
+            }
+          }
+        }
+      },
+      "CrearIngresoResponse": {
+        "type": "object",
+        "properties": {
+          "registro": {
+            "$ref": "#/components/schemas/IngresoEntity"
+          }
+        }
+      },
+      "ActualizarIngresoResponse": {
+        "type": "object",
+        "properties": {
+          "registroActualizado": {
+            "$ref": "#/components/schemas/IngresoEntity"
+          }
+        }
+      },
+      "EliminarIngresoResponse": {
+        "type": "object",
+        "properties": {
+          "registroEliminado": {
+            "$ref": "#/components/schemas/IngresoEntity"
+          }
+        }
+      },
+      "CrearGastoDto": {
+        "type": "object",
+        "required": [
+          "userId",
+          "categoryId",
+          "amount"
+        ],
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "description": "ID del usuario propietario del gasto",
+            "example": 1
+          },
+          "categoryId": {
+            "type": "integer",
+            "description": "ID de la categoría del gasto",
+            "example": 1
+          },
+          "amount": {
+            "type": "number",
+            "format": "float",
+            "description": "Monto del gasto (mayor a 0)",
+            "example": 350.75
+          }
+        }
+      },
+      "ActualizarGastoDto": {
+        "type": "object",
+        "properties": {
+          "categoryId": {
+            "type": "integer",
+            "description": "Nuevo ID de categoría de gasto",
+            "example": 2
+          },
+          "amount": {
+            "type": "number",
+            "format": "float",
+            "description": "Nuevo monto del gasto (mayor a 0)",
+            "example": 420
+          }
+        }
+      },
+      "GastoEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "userId": {
+            "type": "integer",
+            "example": 1
+          },
+          "categoryId": {
+            "type": "integer",
+            "example": 1
+          },
+          "amount": {
+            "type": "number",
+            "example": 350.75
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-10-08T04:20:00.000Z"
+          }
+        }
+      },
+      "ListarGastosResponse": {
+        "type": "object",
+        "properties": {
+          "registros": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GastoEntity"
+            }
+          }
+        }
+      },
+      "CrearGastoResponse": {
+        "type": "object",
+        "properties": {
+          "nuevoGasto": {
+            "$ref": "#/components/schemas/GastoEntity"
+          }
+        }
+      },
+      "ActualizarGastoResponse": {
+        "type": "object",
+        "properties": {
+          "registroActualizado": {
+            "$ref": "#/components/schemas/GastoEntity"
+          }
+        }
+      },
+      "EliminarGastoResponse": {
+        "type": "object",
+        "properties": {
+          "registroEliminado": {
+            "$ref": "#/components/schemas/GastoEntity"
+          }
+        }
+      },
+      "CrearPrestamoDto": {
+        "type": "object",
+        "required": [
+          "userId",
+          "nombrePrestamo",
+          "amount"
+        ],
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "description": "ID del usuario propietario del préstamo",
+            "example": 1
+          },
+          "nombrePrestamo": {
+            "type": "string",
+            "description": "Nombre o descripción del préstamo",
+            "example": "Préstamo Personal Banco Galicia"
+          },
+          "amount": {
+            "type": "number",
+            "format": "float",
+            "description": "Monto del préstamo (mayor a 0)",
+            "example": 50000
+          }
+        }
+      },
+      "ActualizarPrestamoDto": {
+        "type": "object",
+        "properties": {
+          "nombrePrestamo": {
+            "type": "string",
+            "description": "Nuevo nombre o descripción del préstamo",
+            "example": "Préstamo Automotor"
+          },
+          "amount": {
+            "type": "number",
+            "format": "float",
+            "description": "Nuevo monto actualizado del préstamo",
+            "example": 45000
+          }
+        }
+      },
+      "PrestamoEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "userId": {
+            "type": "integer",
+            "example": 1
+          },
+          "nombrePrestamo": {
+            "type": "string",
+            "example": "Préstamo Personal Banco Galicia"
+          },
+          "amount": {
+            "type": "number",
+            "example": 50000
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-10-08T04:25:00.000Z"
+          }
+        }
+      },
+      "ListarPrestamosResponse": {
+        "type": "object",
+        "properties": {
+          "registros": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PrestamoEntity"
+            }
+          }
+        }
+      },
+      "CrearPrestamoResponse": {
+        "type": "object",
+        "properties": {
+          "registrarPrestamo": {
+            "$ref": "#/components/schemas/PrestamoEntity"
+          }
+        }
+      },
+      "ActualizarPrestamoResponse": {
+        "type": "object",
+        "properties": {
+          "registroActualizado": {
+            "$ref": "#/components/schemas/PrestamoEntity"
+          }
+        }
+      },
+      "EliminarPrestamoResponse": {
+        "type": "object",
+        "properties": {
+          "eliminarRegistro": {
+            "$ref": "#/components/schemas/PrestamoEntity"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Autenticación mediante token JWT en la cabecera Authorization (formato: Bearer <token>)"
+      }
+    }
+  }
+}
