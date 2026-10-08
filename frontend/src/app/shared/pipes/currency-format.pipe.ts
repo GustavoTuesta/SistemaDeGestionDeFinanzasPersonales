@@ -6,13 +6,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CurrencyFormatPipe implements PipeTransform {
   transform(value: number | string | null | undefined): string {
-    if (value === null || value === undefined || value === '') return '$0.00';
+    if (value === null || value === undefined || value === '') return 'S/ 0.00';
     const num = typeof value === 'string' ? parseFloat(value) : value;
-    if (isNaN(num)) return '$0.00';
+    if (isNaN(num)) return 'S/ 0.00';
 
-    return new Intl.NumberFormat('es-AR', {
+    return new Intl.NumberFormat('es-PE', {
       style: 'currency',
-      currency: 'ARS',
+      currency: 'PEN',
       minimumFractionDigits: 2,
     }).format(num);
   }

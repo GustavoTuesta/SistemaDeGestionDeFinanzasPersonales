@@ -173,7 +173,7 @@ import { SkeletonComponent } from '../../shared/components/skeleton/skeleton.com
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-slate-700">Monto ($ ARS)</label>
+            <label class="block text-sm font-medium text-slate-700">Monto (S/ PEN)</label>
             <input
               type="number"
               step="0.01"
