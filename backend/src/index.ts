@@ -1,4 +1,6 @@
+import 'dotenv/config'
 import express from 'express'
+import cors from 'cors'
 import loginRoute from './modules/login/login-route'
 import registerRoute from './modules/registro/registro-route'
 import ingresoRoute from './modules/ingresos/ingresos-route'
@@ -9,6 +11,7 @@ import { errorHandler } from './middlewares/errorHandler'
 
 
 const app = express()
+app.use(cors())
 app.use(express.json()) //middleware que permite transformar la req.body de una peticion a un json
 
 const PORT = process.env.PORT || 3000;
