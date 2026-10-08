@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   template: `
     <div
       [class]="customClass()"
-      class="animate-pulse bg-slate-200/80 rounded-xl"
+      class="animate-pulse bg-slate-200/80 dark:bg-slate-800 rounded-xl"
       aria-hidden="true"
     ></div>
   `,

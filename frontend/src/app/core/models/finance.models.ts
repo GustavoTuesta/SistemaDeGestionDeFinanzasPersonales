@@ -87,3 +87,26 @@ export interface CategoryOption {
   id: number;
   name: string;
 }
+
+export const CATEGORIAS_INGRESO: readonly CategoryOption[] = [
+  { id: 1, name: 'Sueldo' },
+  { id: 2, name: 'Viaticos' },
+] as const;
+
+export const CATEGORIAS_GASTO: readonly CategoryOption[] = [
+  { id: 1, name: 'Comida' },
+  { id: 2, name: 'Transporte' },
+  { id: 3, name: 'Salud' },
+  { id: 4, name: 'Entretenimiento' },
+] as const;
+
+export function obtenerNombreCategoriaIngreso(id: number): string {
+  const found = CATEGORIAS_INGRESO.find((c) => c.id === id);
+  return found ? found.name : `Categoría #${id}`;
+}
+
+export function obtenerNombreCategoriaGasto(id: number): string {
+  const found = CATEGORIAS_GASTO.find((c) => c.id === id);
+  return found ? found.name : `Categoría #${id}`;
+}
+

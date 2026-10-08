@@ -9,7 +9,7 @@ import { AuthService } from '../../core/auth/auth.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   template: `
-    <div class="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 transition-colors duration-200">
       <div class="sm:mx-auto sm:w-full sm:max-w-md">
         <!-- Brand Icon -->
         <div class="mx-auto w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-lg shadow-emerald-500/25">
@@ -17,19 +17,19 @@ import { AuthService } from '../../core/auth/auth.service';
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
-        <h2 class="mt-4 text-center text-2xl font-bold tracking-tight text-slate-900">
+        <h2 class="mt-4 text-center text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
           Iniciar sesión
         </h2>
-        <p class="mt-1.5 text-center text-sm text-slate-500">
+        <p class="mt-1.5 text-center text-sm text-slate-500 dark:text-slate-400">
           Accedé a tu panel de control de finanzas personales
         </p>
       </div>
 
       <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4 sm:px-0">
-        <div class="bg-white py-8 px-6 shadow-sm border border-slate-200/80 rounded-2xl sm:px-10">
+        <div class="bg-white dark:bg-slate-900 py-8 px-6 shadow-sm border border-slate-200/80 dark:border-slate-800 rounded-2xl sm:px-10 transition-colors">
           
           @if (errorMessage()) {
-            <div class="mb-5 p-3 rounded-xl bg-rose-50 border border-rose-200/80 text-rose-700 text-sm flex items-center gap-2">
+            <div class="mb-5 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200/80 dark:border-rose-900/60 text-rose-700 dark:text-rose-300 text-sm flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
               </svg>
@@ -39,7 +39,7 @@ import { AuthService } from '../../core/auth/auth.service';
 
           <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-5">
             <div>
-              <label for="email" class="block text-sm font-medium text-slate-700">
+              <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Correo Electrónico
               </label>
               <div class="mt-1.5">
@@ -48,16 +48,16 @@ import { AuthService } from '../../core/auth/auth.service';
                   type="email"
                   formControlName="email"
                   placeholder="ejemplo@correo.com"
-                  class="block w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 text-sm transition-all"
+                  class="block w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 px-3.5 py-2.5 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 text-sm transition-all"
                 />
               </div>
               @if (form.get('email')?.touched && form.get('email')?.invalid) {
-                <p class="mt-1 text-xs text-rose-600">Ingresá un correo electrónico válido.</p>
+                <p class="mt-1 text-xs text-rose-600 dark:text-rose-400">Ingresá un correo electrónico válido.</p>
               }
             </div>
 
             <div>
-              <label for="password" class="block text-sm font-medium text-slate-700">
+              <label for="password" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Contraseña
               </label>
               <div class="mt-1.5">
@@ -66,11 +66,11 @@ import { AuthService } from '../../core/auth/auth.service';
                   type="password"
                   formControlName="password"
                   placeholder="••••••••"
-                  class="block w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 text-sm transition-all"
+                  class="block w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 px-3.5 py-2.5 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 text-sm transition-all"
                 />
               </div>
               @if (form.get('password')?.touched && form.get('password')?.invalid) {
-                <p class="mt-1 text-xs text-rose-600">La contraseña es obligatoria.</p>
+                <p class="mt-1 text-xs text-rose-600 dark:text-rose-400">La contraseña es obligatoria.</p>
               }
             </div>
 
@@ -95,9 +95,9 @@ import { AuthService } from '../../core/auth/auth.service';
             </div>
           </form>
 
-          <div class="mt-6 text-center text-sm text-slate-500">
+          <div class="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
             ¿No tenés una cuenta?
-            <a routerLink="/register" class="font-semibold text-emerald-600 hover:text-emerald-500 ml-1">
+            <a routerLink="/register" class="font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 ml-1">
               Registrate acá
             </a>
           </div>

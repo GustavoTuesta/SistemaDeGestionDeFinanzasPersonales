@@ -27,18 +27,18 @@ import { SkeletonComponent } from '../../shared/components/skeleton/skeleton.com
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <div class="flex items-center gap-2">
-            <span class="p-2 rounded-xl bg-blue-50 text-blue-600">
+            <span class="p-2 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
               <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>
             </span>
-            <h1 class="text-2xl font-bold tracking-tight text-slate-900">Módulo de Préstamos</h1>
+            <h1 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Módulo de Préstamos</h1>
           </div>
-          <p class="text-sm text-slate-500 mt-1">Controlá tus créditos, pasivos y compromisos financieros</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Controlá tus créditos, pasivos y compromisos financieros</p>
         </div>
 
         <div class="flex items-center gap-3">
-          <div class="bg-blue-50 border border-blue-200/80 rounded-xl px-4 py-2 text-right">
-            <span class="text-xs text-blue-700 font-medium block">Total Compromisos</span>
-            <span class="text-lg font-bold text-blue-800">{{ total() | currencyFormat }}</span>
+          <div class="bg-blue-50 dark:bg-blue-950/40 border border-blue-200/80 dark:border-blue-900/60 rounded-xl px-4 py-2 text-right">
+            <span class="text-xs text-blue-700 dark:text-blue-300 font-medium block">Total Compromisos</span>
+            <span class="text-lg font-bold text-blue-800 dark:text-blue-200">{{ total() | currencyFormat }}</span>
           </div>
 
           <button
@@ -53,33 +53,33 @@ import { SkeletonComponent } from '../../shared/components/skeleton/skeleton.com
       </div>
 
       <!-- Barra de Filtros / Búsqueda -->
-      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-sm">
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white dark:bg-slate-900 p-3.5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm transition-colors">
         <div class="relative flex-1">
           <input
             type="text"
             [(ngModel)]="busqueda"
             placeholder="Buscar préstamo por nombre o monto..."
-            class="w-full pl-9 pr-4 py-2 text-sm rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+            class="w-full pl-9 pr-4 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
           />
-          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </div>
-        <div class="text-xs text-slate-500 px-1">
+        <div class="text-xs text-slate-500 dark:text-slate-400 px-1">
           Mostrando {{ filtrados().length }} de {{ prestamos().length }} registros
         </div>
       </div>
 
       <!-- Feedback Banner -->
       @if (feedback()) {
-        <div [class]="feedback()?.type === 'success' ? 'bg-emerald-50 text-emerald-800 border-emerald-200' : 'bg-rose-50 text-rose-800 border-rose-200'" class="p-3.5 rounded-xl border text-sm flex items-center justify-between">
+        <div [class]="feedback()?.type === 'success' ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800' : 'bg-rose-50 dark:bg-rose-950/40 text-rose-800 dark:text-rose-300 border-rose-200 dark:border-rose-800'" class="p-3.5 rounded-xl border text-sm flex items-center justify-between">
           <span>{{ feedback()?.message }}</span>
           <button (click)="feedback.set(null)" class="text-xs font-bold opacity-60 hover:opacity-100 p-1" aria-label="Cerrar notificación">✕</button>
         </div>
       }
 
       <!-- Tabla de Préstamos -->
-      <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+      <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm overflow-hidden transition-colors">
         @if (isLoading()) {
           <div class="p-6 space-y-4">
             <app-skeleton customClass="h-10 w-full" />
@@ -87,17 +87,17 @@ import { SkeletonComponent } from '../../shared/components/skeleton/skeleton.com
             <app-skeleton customClass="h-10 w-full" />
           </div>
         } @else if (filtrados().length === 0) {
-          <div class="p-12 text-center text-slate-400 flex flex-col items-center">
-            <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-3">
+          <div class="p-12 text-center text-slate-400 dark:text-slate-500 flex flex-col items-center">
+            <div class="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-3">
               <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
-            <p class="text-base font-semibold text-slate-700">No se encontraron préstamos</p>
-            <p class="text-xs text-slate-400 mt-1">Registrá un crédito o préstamo con el botón superior.</p>
+            <p class="text-base font-semibold text-slate-700 dark:text-slate-200">No se encontraron préstamos</p>
+            <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">Registrá un crédito o préstamo con el botón superior.</p>
             <button
               (click)="abrirModalCrear()"
-              class="mt-4 min-h-[44px] px-4 py-2 rounded-xl text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200"
+              class="mt-4 min-h-[44px] px-4 py-2 rounded-xl text-xs font-semibold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 hover:bg-blue-100 dark:hover:bg-blue-900/60 border border-blue-200 dark:border-blue-800"
             >
               + Agregar Préstamo
             </button>
@@ -106,7 +106,7 @@ import { SkeletonComponent } from '../../shared/components/skeleton/skeleton.com
           <div class="w-full overflow-x-auto">
             <table class="w-full text-left border-collapse text-sm min-w-[600px]">
               <thead>
-                <tr class="bg-slate-50/70 border-b border-slate-100 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                <tr class="bg-slate-50/70 dark:bg-slate-800/60 border-b border-slate-100 dark:border-slate-800 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   <th class="py-3 px-6">ID</th>
                   <th class="py-3 px-6">Nombre del Préstamo</th>
                   <th class="py-3 px-6">Fecha</th>
@@ -114,31 +114,31 @@ import { SkeletonComponent } from '../../shared/components/skeleton/skeleton.com
                   <th class="py-3 px-6 text-right">Acciones</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-slate-100">
+              <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
                 @for (item of filtrados(); track item.id) {
-                  <tr class="hover:bg-slate-50/60 transition-colors">
-                    <td class="py-3.5 px-6 font-mono text-xs text-slate-400">#{{ item.id }}</td>
-                    <td class="py-3.5 px-6 font-medium text-slate-800">
+                  <tr class="hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition-colors">
+                    <td class="py-3.5 px-6 font-mono text-xs text-slate-400 dark:text-slate-500">#{{ item.id }}</td>
+                    <td class="py-3.5 px-6 font-medium text-slate-800 dark:text-slate-200">
                       {{ item.nombrePrestamo }}
                     </td>
-                    <td class="py-3.5 px-6 text-slate-500 text-xs">
+                    <td class="py-3.5 px-6 text-slate-500 dark:text-slate-400 text-xs">
                       {{ item.date | date: 'dd/MM/yyyy HH:mm' }}
                     </td>
-                    <td class="py-3.5 px-6 text-right font-bold text-slate-800 whitespace-nowrap">
+                    <td class="py-3.5 px-6 text-right font-bold text-slate-800 dark:text-slate-200 whitespace-nowrap">
                       {{ item.amount | currencyFormat }}
                     </td>
                     <td class="py-3.5 px-6 text-right space-x-2 whitespace-nowrap">
                       <button
                         type="button"
                         (click)="abrirModalEditar(item)"
-                        class="min-h-[38px] px-3 py-1 text-xs font-medium text-slate-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors border border-slate-200"
+                        class="min-h-[38px] px-3 py-1 text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition-colors border border-slate-200 dark:border-slate-700"
                       >
                         Editar
                       </button>
                       <button
                         type="button"
                         (click)="abrirConfirmEliminar(item.id)"
-                        class="min-h-[38px] px-3 py-1 text-xs font-medium text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition-colors border border-rose-200"
+                        class="min-h-[38px] px-3 py-1 text-xs font-medium text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg transition-colors border border-rose-200 dark:border-rose-900/60"
                       >
                         Eliminar
                       </button>
@@ -159,38 +159,38 @@ import { SkeletonComponent } from '../../shared/components/skeleton/skeleton.com
       >
         <form [formGroup]="form" (ngSubmit)="guardar()" class="space-y-4">
           <div>
-            <label class="block text-sm font-medium text-slate-700">Nombre / Entidad del Préstamo</label>
+            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Nombre / Entidad del Préstamo</label>
             <input
               type="text"
               formControlName="nombrePrestamo"
               placeholder="Ej: Préstamo Banco Santander"
-              class="mt-1 block w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 text-sm transition-all"
+              class="mt-1 block w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 px-3.5 py-2.5 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 text-sm transition-all"
             />
             @if (form.get('nombrePrestamo')?.touched && form.get('nombrePrestamo')?.invalid) {
-              <p class="mt-1 text-xs text-rose-600">El nombre del préstamo no puede estar vacío.</p>
+              <p class="mt-1 text-xs text-rose-600 dark:text-rose-400">El nombre del préstamo no puede estar vacío.</p>
             }
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-slate-700">Monto (S/ PEN)</label>
+            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Monto (S/ PEN)</label>
             <input
               type="number"
               step="0.01"
               min="0.01"
               formControlName="amount"
               placeholder="0.00"
-              class="mt-1 block w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 text-sm transition-all"
+              class="mt-1 block w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 px-3.5 py-2.5 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 text-sm transition-all"
             />
             @if (form.get('amount')?.touched && form.get('amount')?.invalid) {
-              <p class="mt-1 text-xs text-rose-600">El monto debe ser un número mayor a 0.</p>
+              <p class="mt-1 text-xs text-rose-600 dark:text-rose-400">El monto debe ser un número mayor a 0.</p>
             }
           </div>
 
-          <div class="mt-6 flex justify-end gap-3 pt-3 border-t border-slate-100">
+          <div class="mt-6 flex justify-end gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
             <button
               type="button"
               (click)="cerrarModal()"
-              class="min-h-[44px] px-4 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 transition-colors"
+              class="min-h-[44px] px-4 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               Cancelar
             </button>
