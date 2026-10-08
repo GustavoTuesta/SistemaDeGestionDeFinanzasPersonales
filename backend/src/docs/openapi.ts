@@ -9,18 +9,36 @@ export const openApiDocument = {
   info: {
     title: "Sistema de Finanzas Personales API",
     version: "1.0.0",
-    description: `API RESTful para la gestión y control de finanzas personales.
-Permite registrar transacciones financieras organizadas en módulos de **Autenticación**, **Ingresos**, **Gastos** y **Préstamos**.
+    description: `
+API RESTful empresarial para la administración, registro y control de finanzas personales.
 
-Documentada y renderizada con **Scalar API Reference**.`,
+### Módulos Principales:
+- **Autenticación**: Registro de nuevos usuarios y emisión de tokens JWT mediante bcrypt y firmado criptográfico.
+- **Ingresos**: Control y clasificación de entradas monetarias del usuario por categoría.
+- **Gastos**: Seguimiento de débitos y consumos categorizados con validación de integridad referencial.
+- **Préstamos**: Registro y control de pasivos, compromisos crediticios y acreedores.
+
+### Estándar de Especificación:
+- Especificación construida bajo el estándar **OpenAPI 3.1.0** y visualizada con **Scalar API Reference**.
+- Cobertura exhaustiva de códigos de estado HTTP (\`200\`, \`201\`, \`400\`, \`401\`, \`404\`, \`409\`, \`422\`, \`500\`).
+- Esquemas fuertemente tipados con restricciones de rango y validaciones de campo.
+    `.trim(),
     contact: {
-      name: "Equipo de Desarrollo",
+      name: "Equipo de Arquitectura y Desarrollo",
+      email: "soporte@finanzas-personales.local",
+    },
+    license: {
+      name: "ISC",
     },
   },
   servers: [
     {
       url: "http://localhost:5000",
-      description: "Servidor de Desarrollo Local",
+      description: "Servidor de Desarrollo Local (Puerto 5000)",
+    },
+    {
+      url: "http://localhost:3000",
+      description: "Servidor de Desarrollo Local (Puerto 3000)",
     },
   ],
   tags: [

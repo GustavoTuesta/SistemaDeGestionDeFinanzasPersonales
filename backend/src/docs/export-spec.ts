@@ -2,7 +2,14 @@ import fs from "fs";
 import path from "path";
 import { openApiDocument } from "./openapi";
 
-const outputPath = path.resolve(__dirname, "../../openapi.json");
-fs.writeFileSync(outputPath, JSON.stringify(openApiDocument, null, 2), "utf-8");
+const backendOutputPath = path.resolve(__dirname, "../../openapi.json");
+const rootOutputPath = path.resolve(__dirname, "../../../openapi.json");
+const jsonContent = JSON.stringify(openApiDocument, null, 2);
 
-console.log(`Especificación OpenAPI generada exitosamente en: ${outputPath}`);
+fs.writeFileSync(backendOutputPath, jsonContent, "utf-8");
+console.log(`Especificación OpenAPI generada exitosamente en: ${backendOutputPath}`);
+
+if (fs.existsSync(path.dirname(rootOutputPath))) {
+  fs.writeFileSync(rootOutputPath, jsonContent, "utf-8");
+  console.log(`Especificación OpenAPI sincronizada en la raíz: ${rootOutputPath}`);
+}
